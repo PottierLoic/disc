@@ -15,7 +15,8 @@ pub struct RoleMapping {
 }
 
 pub fn load_role_mappings() -> anyhow::Result<Vec<RoleMapping>> {
-  let file = fs::read_to_string("roles.json")?;
+  let file = fs::read_to_string("roles.json")
+    .map_err(|e| anyhow::anyhow!("Failed to read roles.json: {}", e))?;
   let data: Vec<RoleMapping> = serde_json::from_str(&file)?;
   Ok(data)
 }

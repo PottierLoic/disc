@@ -13,7 +13,9 @@ use events::Handler;
 
 #[tokio::main]
 async fn main() {
-  dotenv().ok();
+  if std::env::var("DISCORD_TOKEN").is_err() {
+    dotenv().ok();
+  }
 
   tracing_subscriber::fmt()
     .with_env_filter("info")
